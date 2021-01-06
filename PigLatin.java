@@ -3,17 +3,24 @@ public class PigLatin{
   public static void main(String[] args){
     System.out.println(pigLatinSimple("David"));
     System.out.println(pigLatinSimple("avid"));
-    System.out.println(pigLatinSimple("eavid"));
-    System.out.println(pigLatinSimple("iavid"));
+    System.out.println(pigLatinSimple("Eavid"));
+    System.out.println(pigLatinSimple("iaviD"));
     System.out.println(pigLatinSimple("oavid"));
     System.out.println(pigLatinSimple("uavid"));
     System.out.println("-----------------------");
-    System.out.println(pigLatin("black"));
+    System.out.println(pigLatin("blAck"));
     System.out.println(pigLatin("alack"));
-    System.out.println(pigLatin("slim"));
+    System.out.println(pigLatin("slIm"));
     System.out.println(pigLatin("lol"));
-    System.out.println(pigLatin("sl"));
+    System.out.println(pigLatin("Sl"));
     System.out.println(pigLatin("no"));
+    System.out.println("-----------------------");
+    System.out.println(pigLatinBest("3hello"));
+    System.out.println(pigLatinBest("*dajlkwj!"));
+    System.out.println(pigLatinBest(" awdaw!"));
+    System.out.println(pigLatinBest("7!"));
+    System.out.println(pigLatinBest("BlAck!"));
+    System.out.println(pigLatinBest("fO0d!"));
   }
 
   public static boolean weird(char[] sample, String term){
@@ -54,7 +61,20 @@ public class PigLatin{
     return st.substring(1) + st.charAt(0) + "ay";
   }
 
-  public static String pigLatinBest(String s){
-    return "uh";
+  public static String pigLatinBest(String str){
+    str = str.toLowerCase();
+    String punctuation = "";
+    if(!Character.isLetter((Character)str.charAt(str.length()-1)) && !Character.isDigit((Character)str.charAt(str.length()-1)))
+      {punctuation=str.charAt(str.length()-1)+""; str=str.substring(0,str.length()-1);}
+    if(!Character.isLetter(str.charAt(0))){return str + punctuation;}
+    char[] d = new char[]{'a','e','i','o','u'};
+    String[] e = new String[]{"bl", "br", "ch", "ck", "cl", "cr", "dr", "fl",
+                              "fr", "gh", "gl", "gr", "ng", "ph", "pl", "pr",
+                              "qu", "sc", "sh", "sk", "sl", "sm", "sn", "sp",
+                              "st", "sw", "th", "tr", "tw", "wh", "wr"};
+    if(str.length()<=1){return str + "ay" + punctuation;}
+    if(weirder(e, str)){return str.substring(2) + str.substring(0,2) + "ay" + punctuation;}
+    if(weird(d, str)){return str + "hay" + punctuation;}
+    return str.substring(1) + str.charAt(0) + "ay" + punctuation;
   }
 }
